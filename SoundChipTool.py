@@ -101,7 +101,7 @@ class Instrument:
             sawtoothWidth < 0 or sawtoothWidth > SAWTOOTH_WIDTH_DEN or
               sawtoothAmp < 0 or   sawtoothAmp > MAX_SAWTOOTH_AMP   or
                 squarePWM < 0 or     squarePWM > SQUARE_PWM_DEN     or
-                squareAmp < 0 or     squareAmp > MAX_SQUARE_AMP     or 
+                squareAmp < 0 or     squareAmp > MAX_SQUARE_AMP     or
                  noiseAmp < 0 or      noiseAmp > MAX_NOISE_AMP      or
                squareDuty < 0 or    squareDuty > SQUARE_DUTY_DEN    or
               ndSquareAmp < 0 or   ndSquareAmp > MAX_ND_SQUARE_AMP
@@ -143,8 +143,8 @@ class Instrument:
             p4 = p3 + SQUARE_DUTY_BITS
 
             tmp += (
-                (self.noiseAmp    << p4) + 
-                (self.squareDuty  << p3) + 
+                (self.noiseAmp    << p4) +
+                (self.squareDuty  << p3) +
                 (self.ndSquareAmp << p2)
             )
 
@@ -226,14 +226,14 @@ class Channel:
         pointsSurf = pygame.Surface(CHANNEL_SIZE)
 
         pygame.draw.lines(
-            pointsSurf, 
-            FG, False, 
-            tuple((i, 
-                int(translate(self.waveform[i], -AMP, AMP, CHANNEL_PX_OFFSET, CHANNEL_SIZE[1] - CHANNEL_PX_OFFSET))) 
+            pointsSurf,
+            FG, False,
+            tuple((i,
+                int(translate(self.waveform[i], -AMP, AMP, CHANNEL_PX_OFFSET, CHANNEL_SIZE[1] - CHANNEL_PX_OFFSET)))
                 for i in range(min(len(self.waveform), CHANNEL_SIZE[0]))
             )
         )
-        
+
         pygame.draw.rect(pointsSurf, DV, (0, 0) + CHANNEL_SIZE, 1)
         surface.blit(pointsSurf, self.pos)
 
@@ -271,7 +271,7 @@ class SoundChipTool:
                 events.append(Event(
                     type_, message.note,
                     self.channelFilter(message.channel),
-                    int(translate(message.velocity, 0, 127, 0, MAX_AMP)), 
+                    int(translate(message.velocity, 0, 127, 0, MAX_AMP)),
                     message.time
                 ))
             elif message.type == "end_of_track":
@@ -306,7 +306,7 @@ class SoundChipTool:
                    ((instrument.sawtoothAmp / MAX_SAWTOOTH_AMP) * signal.sawtooth(baseArray, instrument.sawtoothWidth / SAWTOOTH_WIDTH_DEN)))
 
         if MIXER_WORDS == 2:
-            return tmp + (((instrument.ndSquareAmp / MAX_ND_SQUARE_AMP) * signal.square(baseArray, instrument.squareDuty / SQUARE_DUTY_DEN)) + 
+            return tmp + (((instrument.ndSquareAmp / MAX_ND_SQUARE_AMP) * signal.square(baseArray, instrument.squareDuty / SQUARE_DUTY_DEN)) +
                           ((   instrument.noiseAmp /     MAX_NOISE_AMP) * numpy.random.uniform(-1, 1, len(baseArray))))
         else: return tmp
 
@@ -320,8 +320,8 @@ class SoundChipTool:
 
     def export(self, events):
         data = (
-            decimalToBinary(         CHANNELS, CHANNEL_ENC_BITS) + 
-            decimalToBinary(NOTES_PER_CHANNEL,   NOTES_ENC_BITS) + 
+            decimalToBinary(         CHANNELS, CHANNEL_ENC_BITS) +
+            decimalToBinary(NOTES_PER_CHANNEL,   NOTES_ENC_BITS) +
             decimalToBinary(      MIXER_WORDS,  MIXER_WORD_BITS)
         )
 
@@ -435,13 +435,13 @@ class SoundChipTool:
         self.playing = {}
 
         self.channels = [
-            [Channel(NOTES_PER_CHANNEL * j + i, j) 
-            for i in range(NOTES_PER_CHANNEL)] 
+            [Channel(NOTES_PER_CHANNEL * j + i, j)
+            for i in range(NOTES_PER_CHANNEL)]
             for j in range(CHANNELS)
         ]
 
         sample = 2 * numpy.pi * numpy.arange(0, NOTE_DURATION, 1 / FREQUENCY_SAMPLE)
-        
+
         if WAIT: input()
 
         updates = []
@@ -510,7 +510,7 @@ class SoundChipTool:
                     self.playing[pair] = [len(song)]
 
                 song.append(Sound(
-                    (event.velocity << SOUND_FREQ_BITS) + 
+                    (event.velocity << SOUND_FREQ_BITS) +
                     self.getFreq(event.note),
                     int(self.instruments[event.channel]), event.time
                 ))
@@ -551,7 +551,7 @@ class SoundChipTool:
 
                 out.write(str(sound.duration) + "\n")
                 out.write(str(sound.sleep)    + "\n")
-                
+
 def getIntArg(name, shName):
     if name in argv:
         idx = argv.index(name)
@@ -567,8 +567,8 @@ def getIntArg(name, shName):
 
 if __name__ == "__main__":
     if len(argv) == 1:
-        print("Custom sound chip tool - thatsOven")
-    else:   
+        print("Custom sound chip tool")
+    else:
         tmp = getIntArg("--channels", "channel")
         if tmp is not None:
             CHANNELS = tmp
@@ -649,4 +649,4 @@ if __name__ == "__main__":
             tool.convert(argv[2])
         else:
             print("unknown command")
-       
+

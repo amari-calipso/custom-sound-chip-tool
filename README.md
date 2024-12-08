@@ -1,11 +1,11 @@
 ﻿# Custom sound chip tool
-A tool used to emulate my [custom computer](https://github.com/thatsOven/custom-emulated-computer)'s sound chip, and convert midi files to code for the computer to run.
+A tool used to emulate my [custom computer](https://github.com/amari-calipso/custom-emulated-computer)'s sound chip, and convert midi files to code for the computer to run.
 # Commands
 - `visualize`
 	- Shows an oscilloscope view of the sound chip's channels while playing the given midi or scts file.
 	- **Usage**: visualize [file name]
 - `convert`
-	- Converts midi or scts files to runnable code for the [custom computer](https://github.com/thatsOven/custom-emulated-computer) that plays the song.
+	- Converts midi or scts files to runnable code for the [custom computer](https://github.com/amari-calipso/custom-emulated-computer) that plays the song.
 	- **Usage**: convert [file name]
 # Command line arguments
 - `--channels`
@@ -20,11 +20,11 @@ A tool used to emulate my [custom computer](https://github.com/thatsOven/custom-
 - `--mixer-words`
 	- Sets the amount of words dedicated to each mixer code. Default is 1.
 	- Usage: --mixer-words [word count]
-- `--instruments` 
-	- Reads an [instrument set file](https://github.com/thatsOven/custom-sound-chip-tool#instrument-set-file) and assigns each instrument to the corresponding channel index. By default, the instrument set will be square waves for every channel.
+- `--instruments`
+	- Reads an [instrument set file](https://github.com/amari-calipso/custom-sound-chip-tool#instrument-set-file) and assigns each instrument to the corresponding channel index. By default, the instrument set will be square waves for every channel.
 	- **Usage**: --instruments [file name]
 - `--extract-instruments`
-	- Creates an [instrument set file](https://github.com/thatsOven/custom-sound-chip-tool#instrument-set-file) based on the current instruments that the sound chip is using. Useful for extracting the instrument set of a scts file.
+	- Creates an [instrument set file](https://github.com/amari-calipso/custom-sound-chip-tool#instrument-set-file) based on the current instruments that the sound chip is using. Useful for extracting the instrument set of a scts file.
 	- **Usage**: --extract-instruments [output file name]
 - `--detect-channels`
 	- Automatically sets the number of channels based on the length of the given instrument set (it's not effective if no instruments are given). This argument is only effective when using the program in visualization mode or when using the `--export` argument.
@@ -42,7 +42,7 @@ A tool used to emulate my [custom computer](https://github.com/thatsOven/custom-
 	- Waits for a keypress (on the terminal window) to start. Useful for recordings. This argument is only effective when using the program in visualization mode.
 	- **Usage**: --wait
 # Instruments
-An instrument is composed as explained in the [Sound code section](https://github.com/thatsOven/custom-emulated-computer#sound-code) of my custom computer project.
+An instrument is composed as explained in the [Sound code section](https://github.com/amari-calipso/custom-emulated-computer#sound-code) of my custom computer project.
 To create an instrument in this program, you can create an instance of the `Instrument` class, and pass it the corresponding arguments.
 ## Instrument set file
 An instrument set file is a list of instruments, each assigned to the corresponding midi channel index. For example:
